@@ -33,7 +33,7 @@ public class NotesController {
         User user = userService.getUserByEmail(email);
         List<Note> notes = noteService.getAllNotesByUser(user);
         model.addAttribute("notes", notes);
-        return "views/notes";
+        return "views/Notes";
     }
 
     // Controller method to display the form for creating a new note
