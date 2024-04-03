@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeLeaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/landing.css}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/landing.css}" />
     <title>Pro Collab</title>
     <style>
-      body{
+      body {
         overflow: hidden;
       }
     </style>
-</head>
-<body>
-    
+  </head>
+  <body>
     <section class="home">
-       
       <div class="description">
         <span class="Signup button"><a href="/register">Sign Up</a></span>
         <span class="login button"><a href="/login">Login</a></span>
 
         <h1 class="title">
-          <span class="gradient-text">Welcome to ProCollab: Elevate Your Project Experience</span>
+          <span class="gradient-text"
+            >Welcome to ProCollab: Elevate Your Project Experience</span
+          >
         </h1>
         <p class="paragraph">
-            Experience the power of unified project planning and execution.
-            Join a community of professionals and elevate your project management game with ProCollab.
+          Experience the power of unified project planning and execution. Join a
+          community of professionals and elevate your project management game
+          with ProCollab.
         </p>
         <form id="form">
-          <button  type="submit" class="btn" aria-label="submit">
+          <button type="submit" class="btn" aria-label="submit">
             <a href="/register">Register</a>
             <ion-icon name="arrow-forward-outline"></ion-icon>
           </button>
-          <button  type="submit" class="btn" aria-label="submit">
+          <button type="submit" class="btn" aria-label="submit">
             <a href="/login">Login</a>
             <ion-icon name="arrow-forward-outline"></ion-icon>
           </button>
@@ -42,27 +43,47 @@
         <span class="item" style="--i: 1"></span>
         <img
           class="item"
-          th:src="@{/images/landing/image1.jpg}"
-          style="--i: 2"
-          alt="" />
+          src="/images/avatars/image1.jpg"
+                    style="--i: 2"
+          alt=""
+        />
         <span class="item" style="--i: 3"></span>
         <img
           class="item"
-          th:src="@{/images/landing/image2.jpg}"          style="--i: 4"
-          alt="" />
+          src="/images/avatars/image2.jpg"
+          style="--i: 4"
+          alt=""
+        />
 
         <img
           class="item"
-          th:src="@{/images/landing/image3.jpg}"          style="--i: 10"
-          alt="" />
+          src="/images/avatars/image3.jpg"
+          style="--i: 10"
+          alt=""
+        />
         <span class="item" style="--i: 11"></span>
-        <img class="item" th:src="@{/images/landing/image4.jpg}" style="--i: 12" alt="" />
+        <img
+          class="item"
+          src="/images/avatars/image4.jpg"
+          style="--i: 12"
+          alt=""
+        />
         <span class="item" style="--i: 5"></span>
 
         <span class="item" style="--i: 9"></span>
-        <img class="item" th:src="@{/images/landing/image5.jpg}"style="--i: 8" alt="" />
+        <img
+          class="item"
+          src="/images/avatars/image5.jpg"
+          style="--i: 8"
+          alt=""
+        />
         <span class="item" style="--i: 7"></span>
-        <img class="item" th:src="@{/images/landing/image6.jpg}" style="--i: 6" alt="" />
+        <img
+          class="item"
+          src="/images/avatars/image6.jpg"
+          style="--i: 6"
+          alt=""
+        />
       </div>
     </section>
   </body>
