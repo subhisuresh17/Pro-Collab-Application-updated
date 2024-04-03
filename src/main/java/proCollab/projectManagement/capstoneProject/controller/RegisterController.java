@@ -41,7 +41,7 @@ public class RegisterController {
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         List<Company> allCompanies = companyService.getAllCompanies();
-        allCompanies.removeFirst();
+        allCompanies.remove(0);
         model.addAttribute("companies", allCompanies);
 
         return "forms/register";

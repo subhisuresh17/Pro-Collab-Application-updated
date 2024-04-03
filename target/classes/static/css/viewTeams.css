@@ -215,7 +215,7 @@ h1 {
 }
 
 /* Styling for the form */
-form {
+.form {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
@@ -320,4 +320,7 @@ button[type="submit"]:hover {
 }
 .form{
     margin-top:50px;
+}
+.dropdown-menu .btn{
+    width: 90px;
 }

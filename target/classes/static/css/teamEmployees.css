@@ -117,3 +117,6 @@ input[type="checkbox"] {
 .assign-btn:hover {
     background-color: #218838;
 }
+.dropdown-menu .btn{
+    width: 90px;
+}
