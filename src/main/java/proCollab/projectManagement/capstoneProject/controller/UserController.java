@@ -1,9 +1,10 @@
-package proCollab.projectManagement.capstoneProject.controller;
 
+package proCollab.projectManagement.capstoneProject.controller;
+ 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 import org.apache.tomcat.util.threads.TaskThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -12,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
+ 
 import proCollab.projectManagement.capstoneProject.model.ChatMessage;
 import proCollab.projectManagement.capstoneProject.model.Note;
 import proCollab.projectManagement.capstoneProject.model.Project;
@@ -32,10 +33,10 @@ import proCollab.projectManagement.capstoneProject.repository.TeamRepository;
 import proCollab.projectManagement.capstoneProject.repository.UserRepository;
 import proCollab.projectManagement.capstoneProject.service.CompanyService;
 import proCollab.projectManagement.capstoneProject.service.UserService;
-
+ 
 @Controller
 public class UserController {
-
+ 
     private UserService userService;
     private CompanyService companyService;
     @Autowired
@@ -48,13 +49,13 @@ public class UserController {
     private TaskHistoryRepository taskHistoryRepository; // Assuming you have a repository for TaskHistory entity
     @Autowired
     private TaskRepository taskRepository; // Assuming you have a repository for Task entity
-
+ 
     @Autowired
     private TeamRepository teamUserRepository; // Assuming you have a repository for TeamUser entity
-
+ 
     @Autowired
     private NoteRepository noteRepository;
-
+ 
     @Autowired
     private TaskThreadsRepository taskThreadsRepository;
     @Autowired
@@ -62,7 +63,7 @@ public class UserController {
         this.userService = userService;
         this.companyService = companyService;
     }
-
+ 
     @GetMapping("/users")
     public String listUsers(Principal principal, Model model, SecurityContextHolderAwareRequestWrapper request) {
         boolean isAdminSigned = request.isUserInRole("ROLE_ADMIN");
@@ -81,13 +82,13 @@ public class UserController {
         model.addAttribute("isAdminSigned", isAdminSigned);
         return "views/users";
     }
-
+ 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable Long id,
             @RequestParam(name = "redirect", required = false) String redirectUrl) {
         // Fetch the user by id
         User user = userRepository.findById(id).orElse(null);
-        
+       
         if (user != null) {
 
             List<Note> userNotes=user.getNotesOwned();
@@ -104,7 +105,7 @@ public class UserController {
             chatMessageRepository.deleteAll(chatMessages);
             List<TaskHistory> taskHistories = taskHistoryRepository.findByUser(user);
             taskHistoryRepository.deleteAll(taskHistories);
-
+ 
             // Remove the user from associated projects
             List<Project> projects = user.getProjects();
             for (Project project : projects) {
@@ -118,10 +119,21 @@ public class UserController {
             }
             List<Task> tasksOwnedByUser = taskRepository.findByOwnerOrderByDateDesc(user);
             List<Task> taskCreated=taskRepository.findByCreatedUser(user);
+            List<Task> taskCreated=taskRepository.findByCreatedUser(user);
             // Then remove the owner reference from each task
             for (Task task : tasksOwnedByUser) {
                 task.setOwner(null);
                 taskRepository.save(task); // Update the task without the owner reference
+            }
+            for (Task task : taskCreated) {
+                task.setOwner(null);
+                task.setCreatedUser(null);
+                taskRepository.save(task); // Update the task without the owner reference
+            }
+            List<Project> projectss=projectRepository.findByCreator(user);
+            for(Project project:projectss){
+                project.setCreator(null);
+                projectRepository.save(project);
             }
             for (Task task : taskCreated) {
                 task.setOwner(null);
@@ -139,8 +151,9 @@ public class UserController {
         if (redirectUrl != null) {
             return "redirect:/superAdmin/assignManager";
         }
-
+ 
         return "redirect:/users";
     }
-
+ 
 }
+ 
