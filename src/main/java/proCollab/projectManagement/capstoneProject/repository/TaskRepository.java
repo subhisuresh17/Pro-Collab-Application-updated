@@ -14,7 +14,7 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByOwnerOrderByDateDesc(User user);
-
+    List<Task> findByCreatedUser(User user);
     long countByIsCompleted(boolean isCompleted);
 
     @Transactional

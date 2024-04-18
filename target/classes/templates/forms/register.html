@@ -15,17 +15,17 @@
         <div id="sign-up" class="left-container sign-up">
             <h1>So let's sign up</h1>
             <div style="width: 100%">
-                <form th:action="@{/register}" th:object="${user}" method="post" class="signup-form">
-                    <input type="text" id="first-name" th:field="*{name}" placeholder="Full Name" />
+                <form th:action="@{/register}" th:object="${user}" method="post" class="signup-form" onsubmit="return validateForm()">
+                    <input type="text" id="first-name" th:field="*{name}" placeholder="Full Name" required />
                     <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                    <input type="email" th:field="*{email}" id="email" placeholder="E-mail" />
+                    <input type="email" th:field="*{email}" id="email" placeholder="E-mail" required />
                     <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                    <input type="text" id="employeeId" th:field="*{employeeId}" placeholder="EmployeeId" />
-                    <input type="password" id="password" th:field="*{password}" placeholder="Password" />
-                    <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                    <input type="hidden" class="form-control" id="photo" name="photo" th:attr="value = ${'images/user.png'}" />
+                    <input type="text" id="employeeId" th:field="*{employeeId}" placeholder="EmployeeId" required />
+                    <input type="password" id="password" th:field="*{password}" placeholder="Password" oninput="validatePassword(this.value)" required />
+                    <div class="text text-danger" id="passwordError"></div>
+                    <input type="hidden" class="form-control" id="photo" name="photo" th:attr="value = ${'images/user.png'}" required />
                     
-                    <select id="company" name="company">
+                    <select id="company" name="company" required>
                         <option value="">Select Company</option>
                         <th:block th:each="company : ${companies}">
                             <option th:value="${company.id}" th:text="${company.name}"></option>
@@ -34,7 +34,7 @@
                    
 
                     <div class="check">
-                        <input type="checkbox" onclick="checkTerms()" id="agree-terms" required/>
+                        <input type="checkbox" onclick="checkTerms()" id="agree-terms" required />
                         <label for="agree-terms">Agree to <a href="#">Terms &amp; Conditions</a></label>
                     </div>
                     <button type="submit" value="Submit" id="signup_submit" class="button sign-up-btn">Sign Up</button>
@@ -52,5 +52,24 @@
     <script src="js/main.js"></script>
     <script src="js/register.js"></script>
     
+    <script>
+        function validatePassword(password) {
+            var passwordError = document.getElementById("passwordError");
+            var regex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/;
+
+            if (!regex.test(password)) {
+                passwordError.textContent = "Password must contain at least 1 capital letter, 1 small letter, 1 unique character, 1 number, and be at least 7 characters long.";
+                return false;
+            } else {
+                passwordError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            return validatePassword(password);
+        }
+    </script>
 </body>
 </html>

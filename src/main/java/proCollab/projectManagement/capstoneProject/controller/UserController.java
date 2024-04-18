@@ -89,6 +89,7 @@ public class UserController {
         User user = userRepository.findById(id).orElse(null);
         
         if (user != null) {
+
             List<Note> userNotes=user.getNotesOwned();
             for(Note note:userNotes){
                 note.setNote_owner(null);
@@ -116,11 +117,21 @@ public class UserController {
                 teamUserRepository.save(team);
             }
             List<Task> tasksOwnedByUser = taskRepository.findByOwnerOrderByDateDesc(user);
-
+            List<Task> taskCreated=taskRepository.findByCreatedUser(user);
             // Then remove the owner reference from each task
             for (Task task : tasksOwnedByUser) {
                 task.setOwner(null);
                 taskRepository.save(task); // Update the task without the owner reference
+            }
+            for (Task task : taskCreated) {
+                task.setOwner(null);
+                task.setCreatedUser(null);
+                taskRepository.save(task); // Update the task without the owner reference
+            }
+            List<Project> projectss=projectRepository.findByCreator(user);
+            for(Project project:projectss){
+                project.setCreator(null);
+                projectRepository.save(project);
             }
             // Now delete the user
             userRepository.deleteById(id);

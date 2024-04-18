@@ -55,3 +55,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+function validatePassword(password) {
+  var passwordError = document.getElementById("passwordError");
+  var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,}$/;
+
+  if (!regex.test(password)) {
+      passwordError.textContent = "Password must contain at least 1 capital letter, 1 small letter, 1 unique character, 1 number, and be at least 7 characters long.";
+      document.getElementById("signup_submit").disabled = true;
+  } else {
+      passwordError.textContent = "";
+      document.getElementById("signup_submit").disabled = false;
+  }
+}

@@ -26,11 +26,11 @@
             </thead>
             <tbody>
                 <tr th:each="project : ${projects}">
-                    <td th:text="${project.name}"></td>
-                    <td th:text="${project.description}"></td>
-                    <td th:text="${project.creator.name}"></td>
-                    <td th:text="${project.startDate}"></td>
-                    <td th:text="${project.dueDate}"></td>
+                    <td th:if="${project.name != null}" th:text="${project.name}"></td>
+                    <td th:if="${project.description != null}" th:text="${project.description}"></td>
+                    <td th:if="${project.creator != null}" th:text="${project.creator.name}"></td>
+                    <td th:if="${project.startDate != null}" th:text="${project.startDate}"></td>
+                    <td th:if="${project.dueDate != null}" th:text="${project.dueDate}"></td>
                     <td>
                         <!-- Check if the current project is in the list of projects associated with the user -->
                         <a th:if="${userProjects.contains(project)}" th:href="@{'/projects/' + ${project.id}}">Details</a>
@@ -40,10 +40,11 @@
                     
                     <td>
                         <!-- Check if the logged-in user is the project creator -->
-                        <button th:if="${#authentication.principal.username == project.creator.email}" type="button" class="delete-button" th:onclick="'deleteProject(\'' + ${project.id} + '\')'">Delete</button>
+                        <button th:if="${project.creator != null and #authentication.principal.username == project.creator.email}" type="button" class="delete-button" th:onclick="'deleteProject(\'' + ${project.id} + '\')'">Delete</button>
                         <!-- Render as a disabled button if the user is not the project creator -->
-                        <button th:unless="${#authentication.principal.username == project.creator.email}" type="button" class="disabled-button" disabled>Delete</button>
+                        <button th:unless="${project.creator != null and #authentication.principal.username == project.creator.email}" type="button" class="disabled-button" disabled>Delete</button>
                     </td>
+                    
                 </tr>
             </tbody>
         </table>
