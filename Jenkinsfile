@@ -41,7 +41,7 @@ pipeline {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
                 dir('pro-collab-app') {
-                    sh 'sudo docker-compose --build'
+                    sh 'sudo docker-compose up --build'
                 }
             }
         }
