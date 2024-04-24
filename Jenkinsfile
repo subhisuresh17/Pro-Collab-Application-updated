@@ -7,7 +7,7 @@ pipeline {
         DOCKER_IMAGE_NAME = 'pro-collab-app'
         GIT_USERNAME = 'subhisuresh17'
         GIT_PASSWORD = 'Love170801*'
-        GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
+        GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-updated.git'
         GIT_CREDENTIALS_ID = 'github-token'
     }
 
@@ -23,7 +23,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('Pro-Collab-Application-latest') {
+                dir('Pro-Collab-Application-updated') {
                     sh 'mvn clean package'
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
         stage('Start Docker Containers') {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
-                dir('Pro-Collab-Application-latest') {
+                dir('Pro-Collab-Application-updated') {
                     sh 'sudo docker-compose up -d'
                 }
             }
