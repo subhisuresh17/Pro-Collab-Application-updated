@@ -15,7 +15,7 @@ pipeline {
         stage('Clone Git Repository') {
             steps {
                 // Clone the Git repository using credentialsId
-                dir('Pro-Collab-Application-latest') {
+                dir('pro-collab-app') {
                     git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('Pro-Collab-Application-updated') {
+                dir('Ppro-collab-app') {
                     sh 'mvn clean package'
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
         stage('Start Docker Containers') {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
-                dir('Pro-Collab-Application-updated') {
+                dir('pro-collab-app') {
                     sh 'sudo docker-compose up -d'
                 }
             }
