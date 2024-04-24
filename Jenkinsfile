@@ -23,7 +23,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('Ppro-collab-app') {
+                dir('pro-collab-app') {
                     sh 'mvn clean package'
                 }
             }
