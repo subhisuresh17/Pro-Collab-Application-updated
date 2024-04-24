@@ -28,12 +28,11 @@ pipeline {
                 }
             }
         }
-
-        stage('Stop and Remove Existing Containers') {
+          stage('Stop existing Docker Containers') {
             steps {
-                // Change directory to the location of docker-compose.yml and stop/remove existing containers
+                // Change directory to the location of docker-compose.yml and run docker-compose up -d
                 dir('pro-collab-app') {
-                    sh 'sudo docker-compose down'
+                    sh 'sudo docker-compose down -d'
                 }
             }
         }
@@ -42,7 +41,7 @@ pipeline {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
                 dir('pro-collab-app') {
-                    sh 'sudo docker-compose up -d'
+                    sh 'sudo docker-compose --build'
                 }
             }
         }
